@@ -66,7 +66,7 @@
                     <p>Congés Acquis :</p>
                     <p>{{employe.congesAcquis}} Jours</p>
                 </div>
-                <button @-click="employeRenseigne=false"> Retour</button>
+                <button @-click="Retour" class="btn btn-primary">Retour</button>
             </div>
         </div>
         
@@ -156,7 +156,11 @@
                     Calcul: function(){
                         this.employe=new Employe(this.newEmployee.nom,this.newEmployee.prenom,this.newEmployee.debut,this.newEmployee.fin,this.newEmployee.ETP);
                         this.employeRenseigne=true;
-                        console.log(this.employe);
+                        
+                    },
+                    Retour: function(){
+                        this.employe=null;
+                        this.employeRenseigne=false;
                     }
                 },
             });
