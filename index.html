@@ -110,8 +110,8 @@
                     var diff = {}                           // Initialisation du retour
                     var tmp = this.fin - this.debut;
                     console.log(tmp);
-                    diff.day = Math.ceil(tmp / (1000 * 60 * 60 * 24));
-                    diff.hour = Math.ceil(tmp / (1000 * 60 * 60));
+                    diff.day = Math.ceil(tmp / (1000 * 60 * 60 * 24))+1;
+                    diff.hour = Math.ceil(tmp / (1000 * 60 * 60))+8;
                     console.log(diff);
                     return diff;
                     
