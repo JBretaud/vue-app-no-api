@@ -36,6 +36,7 @@
                 </div>
                 <button @click.prevent="Calcul" type="submit" class="btn btn-primary">Calcul</button>
             </form>
+
             <div v-if="employeRenseigne" class="w-25 d-flex flex-column align-items-center ">
                 <h1 class="pb-4">Récapitulatif</h1>
                 <div class="w-100 d-flex flex-row justify-content-between">
@@ -110,9 +111,8 @@
                     var diff = {}                           // Initialisation du retour
                     var tmp = this.fin - this.debut;
                     console.log(tmp);
-                    diff.day = Math.ceil(tmp / (1000 * 60 * 60 * 24))+1;
-                    diff.hour = Math.ceil(tmp / (1000 * 60 * 60))+8;
-                    console.log(diff);
+                    diff.day = Math.ceil(tmp / (1000 * 60 * 60*24))+1;
+                    diff.hour =Math.ceil(Math.floor(diff.day/7)*this.ETP*35)+(diff.day % 7)/5*this.ETP*35;
                     return diff;
                     
                 }
