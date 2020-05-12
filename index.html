@@ -122,7 +122,7 @@
                 }
 
                 calcConges(){
-                    var nbConges=Math.ceil((this.duree.day/28)*2.08);
+                    var nbConges=Math.ceil(Math.floor(this.duree.day/28)*2.08);
                     if(nbConges>25)nbConges=25;
                     if(this.duree.day<28)nbConges=0;
                     return nbConges;
