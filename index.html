@@ -116,7 +116,7 @@
                     var tmp = this.fin - this.debut;
                     console.log(tmp);
                     diff.day = Math.ceil(tmp / (1000 * 60 * 60*24))+1;
-                    diff.hour =Math.ceil(Math.floor(diff.day/7)*this.ETP*35)+(diff.day % 7)/5*this.ETP*35;
+                    diff.hour =Math.ceil(Math.floor(diff.day/7)*this.ETP*35)+Math.ceil((diff.day % 7)/5*this.ETP*35);
                     return diff;
                     
                 }
