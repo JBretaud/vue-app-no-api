@@ -11,63 +11,67 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
         <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+        <style>
+            h1{
+                font-family:'Stencil';
+                
+            }
+            #main{
+                background-color: rgb(231, 221, 208);
+            }
+            #recap{
+                background-color:rgb(182, 166, 77)
+            }
+        </style>
     </head>
     <body>
-        <div id="main" class="d-flex flex-row justify-content-center w-100">
-            <form id="newEntry" v-if="!employeRenseigne" class="d-inline-flex flex-column align-items-center w-100" style="max-width: 500px !important;">
-                <h1 class="pb-4">Nouvel Employé</h1>
-                <div class="form-group d-flex flex-column justify-content-between align-items-stretch w-100">
-                    <input class="mx-3" v-model="newEmployee.nom" type="text" name="nom" placeholder="Nom">
+        <div id="main" class="p-5 container">
+            <div class="row d-flex align-items-center justify-content-center">
+                <h1 class="pb-4" style="color:rgb(168, 157, 93);">- Nouvel Employé -</h1>
+            </div>
+            <div class="row d-flex align-items-center justify-content-center" style="height:400px;">
+                <div v-bind:class ="{'col-lg-6': champsPleins, 'col-lg-12': !champsPleins}" class="d-flex justify-content-center">
+                    <form id="newEntry"  class="d-inline-flex flex-column align-items-center w-100" style="max-width: 500px !important;">
+                        
+                        <div class="form-group d-flex flex-column justify-content-between align-items-stretch w-100">
+                            <input class="mx-3" v-model="newEmployee.nom" type="text" name="nom" placeholder="Nom">
+                        </div>
+                        <div class="form-group d-flex flex-column justify-content-between align-items-stretch w-100">
+                            <input class="mx-3" v-model="newEmployee.prenom" type="text" name="prenom" placeholder="Prénom">
+                        </div>
+                        <div class="form-group d-flex flex-row justify-content-between w-100">
+                            <label for="dateDebut">Date de Début de Contrat :</label>
+                            <input v-model="newEmployee.debut" type="date" name="dateDebut">
+                        </div>
+                        <div class="form-group d-flex flex-row justify-content-between w-100">
+                            <label for="dateFin">Date de Fin de Contrat :</label>
+                            <input v-model="newEmployee.fin" type="date" name="dateFin">
+                        </div>
+                        <div class="form-group d-flex flex-row justify-content-between w-100">
+                            <label for="ETP">Equivalent Temps Plein :</label>
+                            <input v-model="newEmployee.ETP" type="number" step=0.1 min=0 max=1 name="ETP">
+                        </div>
+                    </form>
                 </div>
-                <div class="form-group d-flex flex-column justify-content-between align-items-stretch w-100">
-                    <input class="mx-3" v-model="newEmployee.prenom" type="text" name="prenom" placeholder="Prénom">
-                </div>
-                <div class="form-group d-flex flex-row justify-content-between w-100">
-                    <label for="dateDebut">Date de Début de Contrat :</label>
-                    <input v-model="newEmployee.debut" type="date" name="dateDebut">
-                </div>
-                <div class="form-group d-flex flex-row justify-content-between w-100">
-                    <label for="dateFin">Date de Fin de Contrat :</label>
-                    <input v-model="newEmployee.fin" type="date" name="dateFin">
-                </div>
-                <div class="form-group d-flex flex-row justify-content-between w-100">
-                    <label for="ETP">Equivalent Temps Plein :</label>
-                    <input v-model="newEmployee.ETP" type="number" step=0.1 min=0 max=1 name="ETP">
-                </div>
-                <button @click.prevent="Calcul" type="submit" class="btn btn-primary">Calcul</button>
-            </form>
 
-            <div v-if="employeRenseigne" class="w-25 d-flex flex-column align-items-center ">
-                <h1 class="pb-4">Récapitulatif</h1>
-                <div class="w-100 d-flex flex-row justify-content-between">
-                    <p>Employé:</p>
-                    <p>{{employe.nom}} {{employe.prenom}}</p>
+                <div v-if="champsPleins" class="col-lg-6 d-flex flex-column align-items-center" >
+                    <div id="recap" class="py-5 rounded-circle text-light d-flex flex-column align-items-center justify-content-center" style="width:400px; height:400px;">
+                        <h1 class="pb-4">Infos Contrat</h1>
+                        <div class="w-100 d-flex flex-row justify-content-around">
+                            <p>Durée du contrat en jours:</p>
+                            <p>{{employe.duree.day}} Jours</p>
+                        </div>
+                        <div class="w-100 d-flex flex-row justify-content-around">
+                            <p>Heures Travaillées: </p>
+                            <p>{{employe.duree.hour}} Heures</p>
+                        </div>
+                        <div class="w-100 d-flex flex-row justify-content-around">
+                            <p>Congés Acquis :</p>
+                            <p>{{employe.congesAcquis}} Jours</p>
+                        </div>
+                    </div>
+                   
                 </div>
-                <div class="w-100 d-flex flex-row justify-content-between">
-                    <p>Date de début de contrat:</p>
-                    <p>{{employe.getDebut()}}</p>
-                </div>
-                <div class="w-100 d-flex flex-row justify-content-between">
-                    <p>Date de fin de contrat:</p>
-                    <p>{{employe.getFin()}}</p>
-                </div>
-                <div class="w-100 d-flex flex-row justify-content-between">
-                    <p>Equivalents temps plein : </p>
-                    <p>{{employe.ETP*100}}%</p>
-                </div>
-                <div class="w-100 d-flex flex-row justify-content-between">
-                    <p>Durée du contrat en jours:</p>
-                    <p>{{employe.duree.day}} Jours</p>
-                </div>
-                <div class="w-100 d-flex flex-row justify-content-between">
-                    <p>Durée du contrat en heures: </p>
-                    <p>{{employe.duree.hour}} Heures</p>
-                </div>
-                <div class="w-100 d-flex flex-row justify-content-between">
-                    <p>Congés Acquis :</p>
-                    <p>{{employe.congesAcquis}} Jours</p>
-                </div>
-                <button @click="Retour" class="btn btn-primary">Retour</button>
             </div>
         </div>
         
@@ -140,7 +144,6 @@
                 // Define properties and give them initial values.
                 data: {
                     
-                    employeRenseigne:false,
                     newEmployee:{
                         nom:'',
                         prenom:'',
@@ -153,11 +156,7 @@
             
                 // Functions we will be using.
                 methods: {
-                    Calcul: function(){
-                        this.employe=new Employe(this.newEmployee.nom,this.newEmployee.prenom,this.newEmployee.debut,this.newEmployee.fin,this.newEmployee.ETP);
-                        this.employeRenseigne=true;
-                        
-                    },
+                   
                     Retour: function(){
                         this.employe=null;
                         this.newEmployee.nom='';
@@ -166,6 +165,15 @@
                         this.newEmployee.fin='';
                         this.newEmployee.ETP=0;
                         this.employeRenseigne=false;
+                    }
+                },
+                computed:{
+                    champsPleins: function(){
+                        if(this.newEmployee.nom && this.newEmployee.prenom && this.newEmployee.debut && this.newEmployee.fin && this.newEmployee.ETP){
+                            this.employe=new Employe(this.newEmployee.nom,this.newEmployee.prenom,this.newEmployee.debut,this.newEmployee.fin,this.newEmployee.ETP);
+                            return true;
+                        }
+                        return false;
                     }
                 },
             });
